@@ -66,11 +66,11 @@ rm -r *.temp
 
 
 #wyświetlam powitanie 
+apt-get install dialog >>instal.temp
 dialog --title "Witam serdecznie" --backtitle "SKRYPT MUSI ZOSTAĆ WYWOŁANY JAKO ROOT" --msgbox "Cześć - skonfiguruj swój DHCP + routing automatycznie wraz z zmianą
 nazwy serwera etc. Jeśli widzisz tą wiadomość chce życzyć Ci miłego dzionka i smacznej kawusi :)
 Pozdrawiam Kuba Bryndal " 0 0;
 #pora pobrać informacje od użytkwnika
-
 #nazwa serwera
 clear;
 dialog --title "Konfiguracja nazwy serwera" --inputbox "Daj mi nazwe serwera o tu " 0 0 2>config.temp
@@ -94,7 +94,7 @@ clear
 dhcp_configure
 clear
 #robie routing
-sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/systl.conf
-sed -i 's/exit 0/iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE/g' etcrc.local
-echo 'ecit 0' >> /etc/rc.local
+sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+sed -i 's/exit 0/iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE/g' /etc/rc.local
+echo 'exit 0' >> /etc/rc.local
 reboot;
