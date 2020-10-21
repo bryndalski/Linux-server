@@ -7,7 +7,7 @@ function server_rename(){
 server_name=`cat config.temp`;
 #ustawiam nazwe serwera dla pliku hostname\
 rm -r /etc/hostname
-$server_name >> /etc/hostname 
+echo $server_name >> /etc/hostname 
 
 # ustaiwam nazwe serwera dla /etc/hosts
 co_zmieniam=`sed -n 2p /etc/hosts`
