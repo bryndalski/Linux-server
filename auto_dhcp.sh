@@ -1,11 +1,8 @@
 #!/bin/bash
 
-
 #czytam sobie nazwe serwera
 function server_rename(){
-
 server_name=`cat config.temp`;
-#ustawiam nazwe serwera dla pliku hostname\
 rm -r /etc/hostname
 echo $server_name >> /etc/hostname 
 
@@ -21,8 +18,6 @@ rm -r config.temp
 function network_configure(){
 netmask=`cat mask.temp`;
 ip_adress=`cat address.temp`
-#rm -r mask.temp;
-#rm -r address.temp;
 echo -e " \n #interface 2 \n auto enp0s8 \n allow-hotplug enp0s8 \n iface enp0s8 inet static \n address $ip_adress \n netmask $netmask">> /etc/network/interfaces
 }
 
@@ -34,7 +29,6 @@ echo -e " \n #interface 2 \n auto enp0s8 \n allow-hotplug enp0s8 \n iface enp0s8
 #domain.temp
 #broadcast.temp
 function dhcp_configure(){
-#rm -r /etc/dhcp/dhcpd.conf
 adres_ip=`cat address.temp`
 maska=`cat mask.temp`
 nazwa_sieci=`cat domain.temp`
@@ -54,18 +48,6 @@ broadcast=`cat broadcast.temp`
 echo -e "ddns-update-style none;\noption domain-name\"$nazwa_sieci\";\noption domain-name-servers $adres_ip ,$nazwa_drg_dns;\nmax-lease-time 7200;\nlog-facility local7;\nsubnet $subnet netmask $maska{\nrange dynamic-bootp $bootp $bootp_dwa;\noption routers $adres_ip;\noption broadcast-address $broadcast;\n}">/etc/dhcp/dhcpd.conf
 rm -r *.temp
 }
-
-
-
-
-
-
-
-
-
-
-
-
 #wyświetlam powitanie 
 apt-get install dialog >>instal.temp
 dialog --title "Witam serdecznie" --backtitle "SKRYPT MUSI ZOSTAĆ WYWOŁANY JAKO ROOT" --msgbox "Cześć - skonfiguruj swój DHCP + routing automatycznie wraz z zmianą
@@ -84,7 +66,7 @@ clear
 dialog --title "Maska sieci" --inputbox "Podaj mi proszę maskę sieci np 255.255.255.0" 0 0 2>>mask.temp
 clear
 network_configure;
-dialog --title "DHCP" --msgbox "Okej jeśli nic się nie zepsuło to jest miodzio pora się zabrać za dhcp. Wezme od ciebie kilka :Nazwe domeny ,broadcast i DNS2(8,8,8,8)" 0 0;
+dialog --title "DHCP" --msgbox "Okej jeśli nic się nie zepsuło to jest miodzio pora się zabrać za dhcp. Wezme od ciebie kilka :Nazwe domeny, broadcast i DNS2(8,8,8,8)" 0 0;
 clear
 dialog --title "DHCP" --inputbox "Oks to super podaj mi prosze teraz nazwe domeny np zsl04.local" 0 0 2>>domain.temp;
 clear
